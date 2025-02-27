@@ -9,24 +9,27 @@ public class MoveCharacter : MonoBehaviour
     // A function that moves a rigidbody
     public void Move(Rigidbody2D rb, Vector2 dir, float speed)
     {
+        dir = dir.normalized;
         rb.linearVelocity = dir * (speed * modifier);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collider has entered");
-        
-        other.TryGetComponent<MoveModifier>(out MoveModifier moveModifier);
-        switch (moveModifier.groundType)
+
+        if (other.TryGetComponent<MoveModifier>(out MoveModifier moveModifier))
         {
-            case GroundType.mud:
-                modifier = 0.5f;
-                break;
-            case GroundType.ice:
-                break;
-            case GroundType.none:
-                modifier = 1;
-                break;
+            switch (moveModifier.groundType)
+            {
+                case GroundType.mud:
+                    modifier = 0.5f;
+                    break;
+                case GroundType.ice:
+                    break;
+                case GroundType.none:
+                    modifier = 1;
+                    break;
+            }
         }
     }
 

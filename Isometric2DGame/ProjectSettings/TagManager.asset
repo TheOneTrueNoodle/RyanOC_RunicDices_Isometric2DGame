@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Modifier
-  - 
+  - NoCollisions
   - 
   - 
   - 
@@ -41,7 +41,7 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
+  - name: Characters
     uniqueID: 3897641875
     locked: 0
   m_RenderingLayers:

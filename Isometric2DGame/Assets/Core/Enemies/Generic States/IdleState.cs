@@ -4,16 +4,16 @@ public class IdleState : State
 {
     public override void EnterState(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        //Nothing happens when entering the Idle State
     }
 
     public override void UpdateState(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        //Nothing happens during update for the Idle State
     }
 
     public override void ExitState(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        //Nothing happens when exiting the Idle State
     }
 }
