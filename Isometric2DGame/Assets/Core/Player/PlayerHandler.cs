@@ -5,10 +5,10 @@ using UnityEngine.Serialization;
 
 public class PlayerHandler : MonoBehaviour
 {
-    [FormerlySerializedAs("_speed")] [Header("Movement Variables")] [SerializeField]
+    [Header("Movement Variables")] [SerializeField]
     private float speed;
 
-    [FormerlySerializedAs("_rb")] [Header("Component References")]
+    [Header("Component References")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private MoveCharacter moveCharacter;
     [SerializeField] private Animator anim;
@@ -35,7 +35,7 @@ public class PlayerHandler : MonoBehaviour
             anim.SetFloat("Horizontal", moveInput.x);
         }
 
-        // Get the exxact Radians to align the movement input with the world tileset so pressing W or Up moves the Character to the North East in line with the tiles.
+        // Get the exact Radians to align the movement input with the world tileset so pressing W or Up moves the Character to the North East in line with the tiles.
         float deltaX = -63.0f * Mathf.Deg2Rad;
         float deltaY = -27.0f * Mathf.Deg2Rad;
         
