@@ -36,7 +36,7 @@ public class PlayerHandler : MonoBehaviour
         }
 
         // Get the Radian for 45 degrees. This is to apply a -45 degree angle to the movement input, so pressing W or Up moves the Character to the North East
-        float delta = -45.0f * Mathf.Deg2Rad;
+        float delta = -62.0f * Mathf.Deg2Rad;
         
         // Calculate new x and y
         float x = moveInput.x * Mathf.Cos(delta) - moveInput.y * Mathf.Sin(delta);
