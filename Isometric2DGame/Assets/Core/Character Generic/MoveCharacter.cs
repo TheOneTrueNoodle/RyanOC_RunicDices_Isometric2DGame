@@ -2,15 +2,8 @@ using UnityEngine;
 
 public class MoveCharacter : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Move(Rigidbody2D rb, Vector2 dir, float speed)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        rb.linearVelocity = dir * speed;
     }
 }
