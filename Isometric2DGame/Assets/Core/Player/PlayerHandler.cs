@@ -9,8 +9,9 @@ public class PlayerHandler : MonoBehaviour
     private float speed;
 
     [FormerlySerializedAs("_rb")] [Header("Component References")]
-    [SerializeField]private Rigidbody2D rb;
-    [SerializeField]private MoveCharacter moveCharacter;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private MoveCharacter moveCharacter;
+    [SerializeField] private Animator anim;
     
     // Variables for movement that are not in the inspector
     [HideInInspector] public Vector2 moveDirection;
@@ -25,6 +26,14 @@ public class PlayerHandler : MonoBehaviour
     {
         // Get the Movement Input
         Vector2 moveInput = ctx.ReadValue<Vector2>();
+        
+        // Set Animator Variables
+        anim.SetBool("Moving", moveInput != Vector2.zero);
+        if (moveInput != Vector2.zero)
+        {
+            anim.SetFloat("Vertical", moveInput.y);
+            anim.SetFloat("Horizontal", moveInput.x);
+        }
 
         // Get the Radian for 45 degrees. This is to apply a -45 degree angle to the movement input, so pressing W or Up moves the Character to the North East
         float delta = -45.0f * Mathf.Deg2Rad;
