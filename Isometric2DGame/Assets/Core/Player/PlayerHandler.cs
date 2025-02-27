@@ -35,12 +35,13 @@ public class PlayerHandler : MonoBehaviour
             anim.SetFloat("Horizontal", moveInput.x);
         }
 
-        // Get the Radian for 45 degrees. This is to apply a -45 degree angle to the movement input, so pressing W or Up moves the Character to the North East
-        float delta = -62.0f * Mathf.Deg2Rad;
+        // Get the exxact Radians to align the movement input with the world tileset so pressing W or Up moves the Character to the North East in line with the tiles.
+        float deltaX = -63.0f * Mathf.Deg2Rad;
+        float deltaY = -27.0f * Mathf.Deg2Rad;
         
         // Calculate new x and y
-        float x = moveInput.x * Mathf.Cos(delta) - moveInput.y * Mathf.Sin(delta);
-        float y = moveInput.x * Mathf.Sin(delta) + moveInput.y * Mathf.Cos(delta);
+        float x = moveInput.x * Mathf.Cos(deltaY) - moveInput.y * Mathf.Sin(deltaX);
+        float y = moveInput.x * Mathf.Sin(deltaY) + moveInput.y * Mathf.Cos(deltaX);
         
         // Assign new x and y as moveDirection
         moveDirection = new Vector2(x, y);
