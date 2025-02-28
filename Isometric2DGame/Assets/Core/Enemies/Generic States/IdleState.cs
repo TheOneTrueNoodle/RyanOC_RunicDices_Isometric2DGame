@@ -4,7 +4,8 @@ public class IdleState : State
 {
     public override void EnterState(Enemy enemy)
     {
-        //Nothing happens when entering the Idle State
+        // Reset Characters velocity and movement
+        enemy.moveCharacter.Move(enemy.rb, Vector2.zero, 0);
     }
 
     public override void UpdateState(Enemy enemy)
