@@ -14,7 +14,7 @@ public class ChaseState : State
     public override void EnterState(Enemy enemy)
     {
         // Debug entered Chase State
-        Debug.Log("Entered Chase State");
+        Debug.Log(enemy.gameObject.name + " has entered the Chase State");
         
         // Reset old path
         path = new NavMeshPath();

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PatrolState : State
 {
@@ -10,10 +11,18 @@ public class PatrolState : State
     
     // Random patrol variables
     private float randomDistance = 0;
-    private float expectedTravelTime = 0;
+    private float expectedTravelTime = 1;
+    
+    // Pathfinding variables
+    private NavMeshPath path;
+
+    private int pathIndex;
     
     public override void EnterState(Enemy enemy)
     {
+        // Debug entered Patrol State
+        Debug.Log(enemy.gameObject.name + " has entered the Patrol State");
+        
         // Quick check to make sure there are patrol points
         if (enemy.patrolPoints.Count <= 0){enemy.SwitchState(enemy.idleState);}
         
@@ -40,6 +49,13 @@ public class PatrolState : State
             }
         }
         targetPosition = enemy.patrolPoints[_currentIndex].transform.position;
+        
+        // Reset old path
+        path = new NavMeshPath();
+        pathIndex = 1;
+        
+        // Calculate a path to the target position
+        NavMesh.CalculatePath(enemy.transform.position, targetPosition, NavMesh.AllAreas, path);
     }
 
     public override void UpdateState(Enemy enemy)
@@ -67,6 +83,17 @@ public class PatrolState : State
 
     private void MoveTowardsPatrolPoint(Enemy enemy)
     {
+        // Check if the path has any corners, if not generate path
+        if (path.corners.Length <= 0)
+        {
+            // Reset old path
+            path = new NavMeshPath();
+            pathIndex = 1;
+            
+            // Calculate a path to the target
+            NavMesh.CalculatePath(enemy.transform.position, targetPosition, NavMesh.AllAreas, path);
+        }
+        
         // Check if close enough to patrol point to wait
         float distance = (targetPosition - enemy.transform.position).magnitude;
         if (distance < enemy.arrivalDistance)
@@ -81,25 +108,35 @@ public class PatrolState : State
         }
         
         // Check if we are using a random patrol point. If true, reduce expected travel time to ensure we dont get stuck.
-        if (enemy.useRandomPatrolPoints)
-        {
-            expectedTravelTime -= Time.deltaTime;
-            if (expectedTravelTime <= 0)
-            {
-                _wait = true;
-                _moveDelay = enemy.moveDelay;
-            
-                // Stop momentum
-                enemy.moveCharacter.Move(enemy.rb, Vector2.zero, 0);
-            
-                return;
-            }
-        }
+        if (enemy.useRandomPatrolPoints) { expectedTravelTime -= Time.deltaTime; }
         
         // Move towards the patrol point
-        Vector2 direction = targetPosition - enemy.transform.position;
+        
+        // Check if expected travel time has run out OR if the enemy has reached the end of the path.
+        if (expectedTravelTime <= 0 || pathIndex >= path.corners.Length)
+        {
+            _wait = true;
+            _moveDelay = enemy.moveDelay;
+            
+            // Stop momentum
+            enemy.moveCharacter.Move(enemy.rb, Vector2.zero, 0);
+            
+            return;
+        }
+        
+        // Find the correct node in the path to go to
+        if ((enemy.transform.position - path.corners[pathIndex]).magnitude < 0.1f)
+        {
+            pathIndex++;
+        }
+        
+        // Find the direction to the next node
+        Vector2 direction = path.corners[pathIndex] - enemy.transform.position;
+        // Normalize direction
         direction.Normalize();
-        enemy.moveCharacter.Move(enemy.rb, direction, enemy.patrolSpeed);
+        
+        // Move the enemy towards the target node
+        enemy.moveCharacter.Move(enemy.rb, direction, enemy.speed);
     }
 
     private void GetNextPatrolPoint(Enemy enemy)
@@ -116,6 +153,13 @@ public class PatrolState : State
         
         // Set new patrol point.
         targetPosition = enemy.patrolPoints[_currentIndex].transform.position;
+        
+        // Reset old path
+        path = new NavMeshPath();
+        pathIndex = 1;
+            
+        // Calculate a path to the target
+        NavMesh.CalculatePath(enemy.transform.position, targetPosition, NavMesh.AllAreas, path);
     }
     
     private void GetRandomPatrolPoint(Enemy enemy)
@@ -137,5 +181,12 @@ public class PatrolState : State
         
         // Set new patrol point.
         targetPosition = enemy.transform.position + (randomDirection * randomDistance);
+        
+        // Reset old path
+        path = new NavMeshPath();
+        pathIndex = 1;
+            
+        // Calculate a path to the target
+        NavMesh.CalculatePath(enemy.transform.position, targetPosition, NavMesh.AllAreas, path);
     }
 }
