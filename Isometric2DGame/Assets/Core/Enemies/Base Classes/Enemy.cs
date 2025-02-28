@@ -19,11 +19,13 @@ public class Enemy : MonoBehaviour
     // Variables to handle Enemy AI
     [Header("AI Variables")] 
     // Patrol Variables
-    [SerializeField] private bool useRandomPatrolPoints;
     public List<GameObject> patrolPoints;
     public float patrolSpeed;
     public float arrivalDistance;
     public float moveDelay;
+    // Random Patrol Variables
+    public bool useRandomPatrolPoints; 
+    public float maxRandomPatrolPointDistance = 2f;
     
     // Orbit Variables
     public float orbitDistance = 2;

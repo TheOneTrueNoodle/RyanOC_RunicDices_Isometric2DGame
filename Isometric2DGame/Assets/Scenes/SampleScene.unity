@@ -238,7 +238,6 @@ MonoBehaviour:
   moveCharacter: {fileID: 820518135}
   anim: {fileID: 0}
   moveDirection: {x: 0, y: 0}
-  useRandomPatrolPoints: 0
   patrolPoints:
   - {fileID: 509105990}
   - {fileID: 258896243}
@@ -246,6 +245,8 @@ MonoBehaviour:
   patrolSpeed: 0.5
   arrivalDistance: 0.5
   moveDelay: 1.5
+  useRandomPatrolPoints: 1
+  maxRandomPatrolPointDistance: 2
   orbitDistance: 1.5
   aggroTarget: {fileID: 0}
 --- !u!70 &276950871
