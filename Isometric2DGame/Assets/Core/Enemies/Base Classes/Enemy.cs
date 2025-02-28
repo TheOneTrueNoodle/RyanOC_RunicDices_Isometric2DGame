@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
@@ -12,6 +13,7 @@ public class Enemy : MonoBehaviour
     public Rigidbody2D rb;
     public MoveCharacter moveCharacter;
     public Animator anim;
+    public NavMeshAgent navMeshAgent;
     
     // Variables for movement that are not in the inspector
     [HideInInspector] public Vector2 moveDirection;
@@ -43,6 +45,12 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        // Set nav mesh component
+        navMeshAgent.updateRotation = false;
+        navMeshAgent.updatePosition = false;
+        navMeshAgent.updateUpAxis = false;
+        
+        // Set starting State
         currentState = patrolPoints.Count > 0 ? patrolState : idleState;
         currentState.EnterState(this);
     }
