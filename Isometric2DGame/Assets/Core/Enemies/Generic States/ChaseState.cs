@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,15 +8,20 @@ public class ChaseState : State
 
     private float _reCalculatePathTimer = 0;
     private const float reCalcTime = 0.2f;
+
+    private int pathIndex;
     
     public override void EnterState(Enemy enemy)
     {
-        // Calculate a path to the Player
-        path = new NavMeshPath();
-        enemy.navMeshAgent.CalculatePath(enemy.aggroTarget.transform.position, path);
+        // Debug entered Chase State
+        Debug.Log("Entered Chase State");
         
-        Debug.Log(path);
-        Debug.Log(path.corners.Length);
+        // Reset old path
+        path = new NavMeshPath();
+        pathIndex = 1;
+        
+        // Calculate a path to the target
+        NavMesh.CalculatePath(enemy.transform.position, enemy.aggroTarget.transform.position, NavMesh.AllAreas, path);
         
         // Set re calculate timer to prevent recalculating the path every single frame
         _reCalculatePathTimer = reCalcTime;
@@ -23,29 +29,41 @@ public class ChaseState : State
 
     public override void UpdateState(Enemy enemy)
     {
-        // Check if the path has any corners
+        // Check if the path has any corners, if not generate path
         if (path.corners.Length <= 0)
         {
+            // Reset old path
             path = new NavMeshPath();
-            enemy.navMeshAgent.CalculatePath(enemy.aggroTarget.transform.position, path);
-            Debug.Log(path.corners.Length);
+            pathIndex = 1;
+            
+            // Calculate a path to the target
+            NavMesh.CalculatePath(enemy.transform.position, enemy.aggroTarget.transform.position, NavMesh.AllAreas, path);
         }
         
         // Update recalculate path timer
         _reCalculatePathTimer -= Time.deltaTime;
+        
         // If timer runs out, recalculate the path to target
         if (_reCalculatePathTimer <= 0)
         {
+            // Reset old path
             path = new NavMeshPath();
-            enemy.navMeshAgent.CalculatePath(enemy.aggroTarget.transform.position, path);
+            pathIndex = 1;
+            
+            // Calculate a path to the target
+            NavMesh.CalculatePath(enemy.transform.position, enemy.aggroTarget.transform.position, NavMesh.AllAreas, path);
             _reCalculatePathTimer = reCalcTime;
         }
         
+        // Find the correct node in the path to go to
+        if ((enemy.transform.position - path.corners[pathIndex]).magnitude < 0.1f){pathIndex++;}
+        
         // Find the direction to the enemies target
-        Vector2 direction = path.corners[0] - enemy.transform.position;
+        Vector2 direction = path.corners[pathIndex] - enemy.transform.position;
         
         // Change to orbit state when the enemy is close enough
-        if (direction.magnitude <= enemy.orbitDistance)
+        float distanceToTarget = (enemy.aggroTarget.transform.position - enemy.transform.position).magnitude;
+        if (distanceToTarget <= enemy.orbitDistance)
         {
             enemy.SwitchState(enemy.orbitState);
         }

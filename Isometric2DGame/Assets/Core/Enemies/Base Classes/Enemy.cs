@@ -47,7 +47,6 @@ public class Enemy : MonoBehaviour
     {
         // Set nav mesh component
         navMeshAgent.updateRotation = false;
-        navMeshAgent.updatePosition = false;
         navMeshAgent.updateUpAxis = false;
         
         // Set starting State
