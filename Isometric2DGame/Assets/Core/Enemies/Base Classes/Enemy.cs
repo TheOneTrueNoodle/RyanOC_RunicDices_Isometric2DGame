@@ -28,7 +28,8 @@ public class Enemy : MonoBehaviour
     public float maxRandomPatrolPointDistance = 2f;
     
     // Orbit Variables
-    public float orbitDistance = 2;
+    public float orbitDistance = 2f;
+    public float maxTimeToAttack = 2f;
     
     [HideInInspector] public GameObject aggroTarget;
     

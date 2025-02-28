@@ -4,6 +4,8 @@ public class OrbitState : State
 {
     private float orbitDir = 1;
     private float angle = 0;
+
+    private float timeToAttack = 0;
     
     public override void EnterState(Enemy enemy)
     {
@@ -13,6 +15,9 @@ public class OrbitState : State
         
         // Calculate the current angle towards the target.
         angle = Vector2.Angle(enemy.transform.position, enemy.aggroTarget.transform.position);
+        
+        // Set a random time to attack.
+        timeToAttack = Random.Range(0.1f, enemy.maxTimeToAttack);
     }
 
     public override void UpdateState(Enemy enemy)
@@ -22,6 +27,12 @@ public class OrbitState : State
         {
             enemy.SwitchState(enemy.chaseState);
         }
+        
+        // Count down the time to attack
+        timeToAttack -= Time.deltaTime;
+        
+        // Check if it is time to attack
+        if(timeToAttack <= 0){enemy.SwitchState(enemy.attackState);}
         
         // Increment the angle during orbit based on the delta time.
         angle += Time.deltaTime * orbitDir * (enemy.speed / 3);
