@@ -4,7 +4,8 @@ public class AttackState : State
 {
     public override void EnterState(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Enemy has attacked!");
+        enemy.SwitchState(enemy.chaseState);
     }
 
     public override void UpdateState(Enemy enemy)
