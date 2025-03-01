@@ -46,6 +46,13 @@ public class OrbitState : State
         Vector2 direction = target - enemy.transform.position;
         direction.Normalize();
         
+        // Set Animator Variables
+        Vector2 lookDir = enemy.aggroTarget.transform.position - enemy.transform.position;
+        enemy.anim.SetBool("Moving", true);
+        enemy.anim.SetFloat("Vertical", lookDir.y);
+        enemy.anim.SetFloat("Horizontal", lookDir.x);
+        
+        
         // Move the enemy towards the new position in orbit
         enemy.moveCharacter.Move(enemy.rb, direction , (enemy.speed / 3));
     }

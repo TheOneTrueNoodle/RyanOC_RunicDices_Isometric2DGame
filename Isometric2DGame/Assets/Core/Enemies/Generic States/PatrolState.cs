@@ -101,6 +101,12 @@ public class PatrolState : State
             _wait = true;
             _moveDelay = enemy.moveDelay;
             
+            
+            // Set Animator Variables
+            enemy.anim.SetBool("Moving", false);
+            enemy.anim.SetFloat("Vertical", 0);
+            enemy.anim.SetFloat("Horizontal", 0);
+            
             // Stop momentum
             enemy.moveCharacter.Move(enemy.rb, Vector2.zero, 0);
             
@@ -134,6 +140,14 @@ public class PatrolState : State
         Vector2 direction = path.corners[pathIndex] - enemy.transform.position;
         // Normalize direction
         direction.Normalize();
+        
+        // Set Animator Variables
+        enemy.anim.SetBool("Moving", direction != Vector2.zero);
+        if (direction != Vector2.zero)
+        {
+            enemy.anim.SetFloat("Vertical", direction.y);
+            enemy.anim.SetFloat("Horizontal", direction.x);
+        }
         
         // Move the enemy towards the target node
         enemy.moveCharacter.Move(enemy.rb, direction, enemy.speed);

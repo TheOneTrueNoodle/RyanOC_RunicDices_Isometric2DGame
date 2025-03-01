@@ -70,6 +70,15 @@ public class ChaseState : State
         
         // Normalize direction
         direction.Normalize();
+        Debug.Log(direction);
+        
+        // Set Animator Variables
+        enemy.anim.SetBool("Moving", direction != Vector2.zero);
+        if (direction != Vector2.zero)
+        {
+            enemy.anim.SetFloat("Vertical", direction.y);
+            enemy.anim.SetFloat("Horizontal", direction.x);
+        }
         
         // Move the enemy towards the target
         enemy.moveCharacter.Move(enemy.rb, direction, enemy.speed);
