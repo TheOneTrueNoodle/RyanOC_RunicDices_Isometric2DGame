@@ -7,6 +7,7 @@ public class HitBox : MonoBehaviour
     
     public HurtBox originHurtBox;
     public float damage;
+    public float knockbackStrength;
 
     public void Setup(HurtBox origin, float dmg)
     {

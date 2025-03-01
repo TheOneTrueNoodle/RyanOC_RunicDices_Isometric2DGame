@@ -3,12 +3,17 @@ using UnityEngine;
 
 public class MoveCharacter : MonoBehaviour
 {
+    // A bool to pause movement when necessary
+    [HideInInspector] public bool canMove = true;
+    
     // Variables to manage what kind of terrain a Character is walking on
     private float modifier = 1;
     
     // A function that moves a rigidbody
     public void Move(Rigidbody2D rb, Vector2 dir, float speed)
     {
+        if (!canMove) { return; }
+        
         dir = dir.normalized;
         rb.linearVelocity = dir * (speed * modifier);
     }
