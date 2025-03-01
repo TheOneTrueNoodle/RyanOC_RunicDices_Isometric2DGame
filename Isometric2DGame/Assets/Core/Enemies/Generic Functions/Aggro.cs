@@ -12,6 +12,10 @@ public class Aggro : MonoBehaviour
         if (!other.gameObject.CompareTag("Player")) return;
         
         thisEnemy.aggroTarget = other.gameObject;
+        
+        // Play Alert Animation
+        thisEnemy.stateAnim.Play("Alert");
+        
         thisEnemy.SwitchState(thisEnemy.chaseState);
     }
 
@@ -21,7 +25,9 @@ public class Aggro : MonoBehaviour
         
         thisEnemy.aggroTarget = null;
         State newState = thisEnemy.patrolPoints.Count > 0 ? thisEnemy.patrolState : thisEnemy.idleState;
-            
+        
+        // Play lost animation
+        thisEnemy.stateAnim.Play("Lost");
         thisEnemy.SwitchState(newState);
     }
 }

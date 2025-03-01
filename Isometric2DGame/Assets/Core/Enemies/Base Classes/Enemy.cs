@@ -36,6 +36,8 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public GameObject aggroTarget;
     
     // State Machine Variables
+    public Animator stateAnim;
+    
     private State currentState;
     public IdleState idleState = new IdleState();
     public PatrolState patrolState = new PatrolState();
