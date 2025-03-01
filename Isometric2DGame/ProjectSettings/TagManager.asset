@@ -13,8 +13,8 @@ TagManager:
   - UI
   - Modifier
   - NoCollisions
-  - 
-  - 
+  - Hitbox
+  - Hurtbox
   - 
   - 
   - 
