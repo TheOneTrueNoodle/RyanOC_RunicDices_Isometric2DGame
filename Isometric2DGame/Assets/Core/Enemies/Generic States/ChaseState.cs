@@ -70,7 +70,6 @@ public class ChaseState : State
         
         // Normalize direction
         direction.Normalize();
-        Debug.Log(direction);
         
         // Set Animator Variables
         enemy.anim.SetBool("Moving", direction != Vector2.zero);

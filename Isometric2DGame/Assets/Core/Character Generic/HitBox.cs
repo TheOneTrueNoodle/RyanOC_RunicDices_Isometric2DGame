@@ -2,17 +2,21 @@ using UnityEngine;
 
 public class HitBox : MonoBehaviour
 {
-    public float damage;
+    // Inspector variables
+    [SerializeField] private Collider2D col;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public HurtBox originHurtBox;
+    public float damage;
+
+    public void Setup(HurtBox origin, float dmg)
     {
-        
+        col.enabled = true;
+        originHurtBox = origin;
+        damage = dmg;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DisableHitBox()
     {
-        
+        col.enabled = false;
     }
 }

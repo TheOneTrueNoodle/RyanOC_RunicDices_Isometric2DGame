@@ -1,16 +1,22 @@
+using System;
 using UnityEngine;
 
 public class HurtBox : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (other.TryGetComponent<HitBox>(out HitBox hitBox))
+        {
+            // Ensure attack can hit htis target
+            if(hitBox.originHurtBox == this){return;}
+            
+            // Take damage
+            Debug.Log("Take " + hitBox.damage + " damage");
+            
+            // Apply knock back based on the position and knock back force of the attacker
+            
+            
+            // Animation effects
+        }
     }
 }

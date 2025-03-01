@@ -7,6 +7,7 @@ public class AttackCharacter : MonoBehaviour
     [SerializeField] private GameObject parentObj;
     [SerializeField] private Animator attackAnim;
     [SerializeField] private HitBox hitBox;
+    [SerializeField] private HurtBox hurtBox;
     
     // Bool to prevent attacking while attacking
     [HideInInspector] public bool isAttacking = false;
@@ -22,7 +23,8 @@ public class AttackCharacter : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         parentObj.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         
-        // TODO Set up the Hit Box of the attack
+        //  Set up the Hit Box of the attack
+        hitBox.Setup(hurtBox, damage);
         
         // Start Attack Animation
         attackAnim.Play("Attack");
@@ -33,6 +35,7 @@ public class AttackCharacter : MonoBehaviour
         isAttacking = false;;
         Debug.Log("Completed Attack");
         
-        // TODO Disable hitbox
+        // Disable Hit Box
+        hitBox.DisableHitBox();
     }
 }
