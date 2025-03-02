@@ -7,7 +7,7 @@ public class AttackCharacter : MonoBehaviour
     [SerializeField] private GameObject parentObj;
     [SerializeField] private Animator attackAnim;
     [SerializeField] private HitBox hitBox;
-    [SerializeField] private HurtBox hurtBox;
+    public HurtBox hurtBox;
     
     // Bool to prevent attacking while attacking
     [HideInInspector] public bool isAttacking = false;

@@ -3,8 +3,8 @@ using UnityEngine;
 public class EnemyWithProjectile : Enemy
 {
     [Header("Projectile Variables")]
-    [SerializeField] private float minProjectileDelay;
-    [SerializeField] private float maxProjectileDelay;
+    public float minProjectileDelay;
+    public float maxProjectileDelay;
     
     public float projectileSpeed;
     public int projectileDamage;
@@ -12,7 +12,7 @@ public class EnemyWithProjectile : Enemy
     public Projectile projectilePrefab;
     
     // Hidden Variables
-    private float currentProjectileDelay;
+    [HideInInspector] public float currentProjectileDelay;
     
     // State for shooting projectile
     public ShootProjectileState ShootProjectileState = new ShootProjectileState();

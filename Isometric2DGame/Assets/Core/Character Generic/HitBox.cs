@@ -3,8 +3,15 @@ using UnityEngine;
 public class HitBox : MonoBehaviour
 {
     // Inspector variables
+    [Header("Components")]
     [SerializeField] private Collider2D col;
+
+    [Header("Destroy on hit")]
+    public bool destroyOnHit = false;
+    public GameObject destroyOnHitObj;
     
+    [Header("Properties")]
+    public bool useHitBoxForKnockback = false;
     public HurtBox originHurtBox;
     public int damage = 1;
     public float knockbackStrength;

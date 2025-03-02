@@ -23,10 +23,17 @@ public class HurtBox : MonoBehaviour
             healthComponent.UpdateHealth(-hitBox.damage);
             
             // Get knock back direction
-            Vector2 dir = transform.position - hitBox.originHurtBox.transform.position;
+            
+            Vector2 dir = transform.position - (hitBox.useHitBoxForKnockback ? hitBox.transform.position : hitBox.originHurtBox.transform.position);
             dir.Normalize();
             
             dir *= hitBox.knockbackStrength;
+            
+            // Check if we need to destroy hitbox
+            if (hitBox.destroyOnHit)
+            {
+                Destroy(hitBox.destroyOnHitObj);
+            }
             
             // TODO Change this from a Coroutine as it would be intensive with large enemy groups and aoe damage.
             // Animation effects 

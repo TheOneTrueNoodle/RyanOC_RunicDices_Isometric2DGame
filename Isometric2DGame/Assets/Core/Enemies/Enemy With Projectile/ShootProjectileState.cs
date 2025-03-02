@@ -6,18 +6,26 @@ public class ShootProjectileState : State
     public override void EnterState(Enemy enemy)
     {
         // Check if the enemy is of the correct class
-        if (enemy.TryGetComponent<EnemyWithProjectile>(out EnemyWithProjectile enemyP))
+        if (enemy.TryGetComponent(out EnemyWithProjectile enemyP))
         {
             // Get direction to target
-            Vector2 dir = enemy.aggroTarget.transform.position - enemy.transform.position;
+            Vector2 dir = enemyP.aggroTarget.transform.position - enemyP.transform.position;
+            dir.Normalize();
         
             // Instantiate projectile
-            Projectile newProjectile = Object.Instantiate(enemyP.projectilePrefab);
+            Projectile newProjectile = Object.Instantiate(enemyP.projectilePrefab).GetComponent<Projectile>();
+            newProjectile.transform.position = enemyP.transform.position;
             
             // Call setup function for new projectile
-            newProjectile.SetupProjectile(dir, enemyP.projectileSpeed, enemyP.projectileDamage);
+            Debug.Log(enemyP);
+            Debug.Log(newProjectile);
             
-            enemy.SwitchState(enemy.chaseState);
+            newProjectile.SetupProjectile(dir, enemyP.projectileSpeed, enemyP.projectileDamage, enemyP.attackCharacter.hurtBox);
+            
+            // Reset Enemy 
+            enemyP.currentProjectileDelay = Random.Range(enemyP.minProjectileDelay, enemyP.maxProjectileDelay);
+            
+            enemyP.SwitchState(enemyP.chaseState);
         }
         else
         {
