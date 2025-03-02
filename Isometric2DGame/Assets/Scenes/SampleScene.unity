@@ -2838,6 +2838,9 @@ MonoBehaviour:
   anim: {fileID: 2062433605}
   attackCharacter: {fileID: 1614051712}
   damage: 1
+  projectilePrefab: {fileID: 2673699819774704869, guid: 9f10eef3ac6b75b48a4063844b790d00, type: 3}
+  projectileDamage: 1
+  projectileSpeed: 5
   moveDirection: {x: 0, y: 0}
 --- !u!1 &1095751479
 GameObject:
@@ -10280,6 +10283,7 @@ MonoBehaviour:
   hitBox: {fileID: 2092320575}
   hurtBox: {fileID: 1187911580}
   isAttacking: 0
+  rangedCooldown: 0.3
 --- !u!1 &1384589806
 GameObject:
   m_ObjectHideFlags: 0
@@ -10828,6 +10832,7 @@ MonoBehaviour:
   hitBox: {fileID: 1106679756}
   hurtBox: {fileID: 669775734}
   isAttacking: 0
+  rangedCooldown: 0.3
 --- !u!1 &1538277461
 GameObject:
   m_ObjectHideFlags: 0
@@ -11227,6 +11232,7 @@ MonoBehaviour:
   hitBox: {fileID: 394021138}
   hurtBox: {fileID: 1658106044}
   isAttacking: 0
+  rangedCooldown: 0.3
 --- !u!1 &1621566456
 GameObject:
   m_ObjectHideFlags: 0

@@ -40,7 +40,7 @@ public class AttackState : State
                 if (windUp <= 0) {attackState++;}
                 break;
             case 1: // Trigger Attack
-                enemy.attackCharacter.TriggerAttack(dir, enemy.damage);
+                enemy.attackCharacter.TriggerAttack(dir, enemy.damage, enemy.moveCharacter);
                 attackState++;
                 break;
             case 2: // Cooldown After Attack

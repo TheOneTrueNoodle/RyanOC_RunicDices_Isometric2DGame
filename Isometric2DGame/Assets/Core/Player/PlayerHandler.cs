@@ -15,6 +15,11 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] private AttackCharacter attackCharacter;
     [SerializeField] private int damage;
     
+    [Header("Ranged Attack Variables")]
+    [SerializeField] private Projectile projectilePrefab;
+    [SerializeField] private int projectileDamage;
+    [SerializeField] private float projectileSpeed;
+    
     // Variables for movement that are not in the inspector
     [HideInInspector] public Vector2 moveDirection;
     private PlayerInputMap _input;
@@ -61,7 +66,17 @@ public class PlayerHandler : MonoBehaviour
         if(attackCharacter.isAttacking){return;}
         
         // Call attack code
-        attackCharacter.TriggerAttack(currentFaceDirection, damage);
+        attackCharacter.TriggerAttack(currentFaceDirection, damage, moveCharacter);
+        moveCharacter.canMove = false;
+    }
+
+    private void TriggerRangedAttack(InputAction.CallbackContext ctx)
+    {
+        if(attackCharacter.isAttacking){return;}
+        
+        // Call ranged attack code
+        attackCharacter.TriggerRangedAttack(currentFaceDirection, projectilePrefab, projectileDamage, projectileSpeed, moveCharacter);
+        moveCharacter.canMove = false;
     }
     
     private void OnEnable()
@@ -76,6 +91,7 @@ public class PlayerHandler : MonoBehaviour
         
         // Subscribes the StartAttack() function to the Attack Player Input
         _input.Gameplay.Attack.performed += TriggerAttack;
+        _input.Gameplay.RangedAttack.performed += TriggerRangedAttack;
     }
 
     private void OnDisable()
@@ -86,5 +102,6 @@ public class PlayerHandler : MonoBehaviour
         
         // Unsubscribes the StartAttack() function to the Attack Player Input
         _input.Gameplay.Attack.performed -= TriggerAttack;
+        _input.Gameplay.RangedAttack.performed -= TriggerRangedAttack;
     }
 }

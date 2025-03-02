@@ -17,9 +17,6 @@ public class ShootProjectileState : State
             newProjectile.transform.position = enemyP.transform.position;
             
             // Call setup function for new projectile
-            Debug.Log(enemyP);
-            Debug.Log(newProjectile);
-            
             newProjectile.SetupProjectile(dir, enemyP.projectileSpeed, enemyP.projectileDamage, enemyP.attackCharacter.hurtBox);
             
             // Reset Enemy 
