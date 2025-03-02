@@ -22,17 +22,24 @@ public class OrbitState : State
 
     public override void UpdateState(Enemy enemy)
     {
-        // Check if the enemy is too far away to orbit. If too far, go back to Chase State.
-        if ((enemy.aggroTarget.transform.position - enemy.transform.position).magnitude >= enemy.orbitDistance * 2)
-        {
-            enemy.SwitchState(enemy.chaseState);
-        }
-        
         // Count down the time to attack
         timeToAttack -= Time.deltaTime;
         
         // Check if it is time to attack
-        if(timeToAttack <= 0){enemy.SwitchState(enemy.attackState);}
+        if (timeToAttack <= 0)
+        {
+            enemy.anim.SetBool("Moving", false);
+            enemy.moveCharacter.Move(enemy.rb, Vector2.zero , 0);
+            enemy.SwitchState(enemy.attackState);
+            return;
+        }
+        
+        // Check if the enemy is too far away to orbit. If too far, go back to Chase State.
+        if ((enemy.aggroTarget.transform.position - enemy.transform.position).magnitude >= enemy.orbitDistance * 2)
+        {
+            enemy.SwitchState(enemy.chaseState);
+            return;
+        }
         
         // Increment the angle during orbit based on the delta time.
         angle += Time.deltaTime * orbitDir * (enemy.speed / 3);

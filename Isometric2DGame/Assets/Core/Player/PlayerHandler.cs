@@ -18,7 +18,7 @@ public class PlayerHandler : MonoBehaviour
     // Variables for movement that are not in the inspector
     [HideInInspector] public Vector2 moveDirection;
     private PlayerInputMap _input;
-    private Vector2 currentFaceDirection;
+    private Vector2 currentFaceDirection = new Vector2(1, 1);
 
     private void FixedUpdate()
     {

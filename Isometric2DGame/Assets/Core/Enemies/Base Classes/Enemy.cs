@@ -19,19 +19,30 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public Vector2 moveDirection;
 
     // Variables to handle Enemy AI
-    [Header("AI Variables")] 
+    
+    [Header("Patrol State")] 
     // Patrol Variables
     public List<GameObject> patrolPoints;
     public float patrolSpeed;
     public float arrivalDistance;
     public float moveDelay;
+    [Space(1)]
     // Random Patrol Variables
     public bool useRandomPatrolPoints; 
     public float maxRandomPatrolPointDistance = 2f;
     
+    [Header("Orbit State")] 
     // Orbit Variables
     public float orbitDistance = 2f;
     public float maxTimeToAttack = 2f;
+
+    [Header("Attack State")]
+    // Attack Variables
+    public AttackCharacter attackCharacter;
+    public float attackWindUp = 0.5f;
+    public float attackCoolDown = 0.5f;
+    
+    public float damage;
     
     [HideInInspector] public GameObject aggroTarget;
     
