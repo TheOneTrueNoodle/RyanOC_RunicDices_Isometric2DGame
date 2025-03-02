@@ -24,6 +24,7 @@ public class PlayerHandler : MonoBehaviour
     [HideInInspector] public Vector2 moveDirection;
     private PlayerInputMap _input;
     private Vector2 currentFaceDirection = new Vector2(1, 1);
+    private Vector2 shootDirection = new Vector2(1, 1);
 
     private void FixedUpdate()
     {
@@ -58,6 +59,7 @@ public class PlayerHandler : MonoBehaviour
             float faceX = x > 0 ? 1 : -1;
             float faceY = y > 0 ? 1 : -1;
             currentFaceDirection = new Vector2(faceX, faceY);
+            shootDirection = moveDirection;
         }
     }
 
@@ -75,7 +77,7 @@ public class PlayerHandler : MonoBehaviour
         if(attackCharacter.isAttacking){return;}
         
         // Call ranged attack code
-        attackCharacter.TriggerRangedAttack(currentFaceDirection, projectilePrefab, projectileDamage, projectileSpeed, moveCharacter);
+        attackCharacter.TriggerRangedAttack(shootDirection, projectilePrefab, projectileDamage, projectileSpeed, moveCharacter);
         moveCharacter.canMove = false;
     }
     
