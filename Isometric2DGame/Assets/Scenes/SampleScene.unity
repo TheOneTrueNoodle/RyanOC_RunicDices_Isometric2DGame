@@ -1511,6 +1511,7 @@ MonoBehaviour:
   hideHealthBarWhenFull: 0
   maxHealth: 5
   healthBar: {fileID: 918437755}
+  character: {fileID: 1072591548}
 --- !u!1 &820518134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,6 +1613,7 @@ MonoBehaviour:
   hideHealthBarWhenFull: 1
   maxHealth: 5
   healthBar: {fileID: 858829910}
+  character: {fileID: 1722082676}
 --- !u!1 &839088743
 GameObject:
   m_ObjectHideFlags: 0

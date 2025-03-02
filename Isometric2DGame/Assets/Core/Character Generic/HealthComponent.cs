@@ -4,11 +4,14 @@ using UnityEngine.UI;
 
 public class HealthComponent : MonoBehaviour
 {
+    [Header("Health Variables")]
     [SerializeField] private bool hideHealthBarWhenFull = true;
     [SerializeField] private int maxHealth;
     private int currentHealth;
 
+    [Header("Components")]
     [SerializeField] private Slider healthBar;
+    [SerializeField] private GameObject character;
 
     private void Start()
     {
@@ -47,7 +50,7 @@ public class HealthComponent : MonoBehaviour
         if (currentHealth <= 0)
         {
             // Character has no more health
-            Debug.Log("Character is dead");
+            Destroy(character);
         }
     }
 }

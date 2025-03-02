@@ -16,12 +16,11 @@ public class HurtBox : MonoBehaviour
     {
         if (other.TryGetComponent<HitBox>(out HitBox hitBox))
         {
-            // Ensure attack can hit htis target
+            // Ensure attack can hit this target
             if(hitBox.originHurtBox == this){return;}
             
             // Take damage
             healthComponent.UpdateHealth(-hitBox.damage);
-            Debug.Log("Takes " + hitBox.damage + " damage");
             
             // Get knock back direction
             Vector2 dir = transform.position - hitBox.originHurtBox.transform.position;
