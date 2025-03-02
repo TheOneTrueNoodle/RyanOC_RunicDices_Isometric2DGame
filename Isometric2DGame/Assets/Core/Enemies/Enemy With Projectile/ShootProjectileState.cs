@@ -9,7 +9,7 @@ public class ShootProjectileState : State
         if (enemy.TryGetComponent(out EnemyWithProjectile enemyP))
         {
             // Get direction to target
-            Vector2 dir = enemyP.aggroTarget.transform.position - enemyP.transform.position;
+            Vector2 dir = enemy.aggroTarget.transform.position - enemy.transform.position;
             dir.Normalize();
         
             // Instantiate projectile
