@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class HealthComponent : MonoBehaviour
 {
+    [SerializeField] private bool hideHealthBarWhenFull = true;
     [SerializeField] private int maxHealth;
     private int currentHealth;
 
@@ -18,8 +19,8 @@ public class HealthComponent : MonoBehaviour
         healthBar.maxValue = maxHealth;
         healthBar.value = currentHealth;
         
-        // Hide health bar when hp is full
-        healthBar.gameObject.SetActive(false);
+        // Hide health bar when hp is full if option is toggled
+        healthBar.gameObject.SetActive(!hideHealthBarWhenFull);
     }
 
     public void UpdateHealth(int modifier)
@@ -34,8 +35,8 @@ public class HealthComponent : MonoBehaviour
         // Check if health is full
         if (currentHealth == maxHealth)
         {
-            // Hide health bar when hp is full
-            healthBar.gameObject.SetActive(false);
+            // Hide health bar when hp is full if option is toggled
+            healthBar.gameObject.SetActive(!hideHealthBarWhenFull);
         }
         else
         {
