@@ -13,6 +13,8 @@ public class HealthComponent : MonoBehaviour
     [SerializeField] private Slider healthBar;
     [SerializeField] private GameObject character;
 
+    [SerializeField] private ParticleSystem deathEffects;
+
     private void Start()
     {
         // Set current health
@@ -50,7 +52,9 @@ public class HealthComponent : MonoBehaviour
         if (currentHealth <= 0)
         {
             // Character has no more health
-            Destroy(character);
+            deathEffects.transform.position = character.transform.position;
+            deathEffects.Play();
+            character.SetActive(false);
         }
     }
 }
