@@ -22,6 +22,7 @@ public class AttackState : State
         
         // Set the wind uptime 
         windUp = enemy.attackWindUp;
+        enemy.windUpAnimator.Play("WindUp");
 
         // Set the cool downtime
         coolDown = enemy.attackCoolDown;

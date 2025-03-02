@@ -41,8 +41,8 @@ public class Enemy : MonoBehaviour
     public AttackCharacter attackCharacter;
     public float attackWindUp = 0.5f;
     public float attackCoolDown = 0.5f;
-    
     public int damage;
+    public Animator windUpAnimator;
     
     [HideInInspector] public GameObject aggroTarget;
     
@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
     public OrbitState orbitState = new OrbitState();
     public AttackState attackState = new AttackState();
 
-    private void Start()
+    public virtual void Start()
     {
         // Set nav mesh component
         navMeshAgent.updateRotation = false;
@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour
         currentState.EnterState(this);
     }
 
-    private void Update()
+    public virtual void Update()
     {
         // Call the Update State function every frame.
         currentState.UpdateState(this);
