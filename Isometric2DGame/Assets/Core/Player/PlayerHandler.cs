@@ -13,7 +13,7 @@ public class PlayerHandler : MonoBehaviour
 
     [Header("Attack Variables")]
     [SerializeField] private AttackCharacter attackCharacter;
-    [SerializeField] private float damage;
+    [SerializeField] private int damage;
     
     // Variables for movement that are not in the inspector
     [HideInInspector] public Vector2 moveDirection;

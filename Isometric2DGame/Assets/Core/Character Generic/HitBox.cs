@@ -6,10 +6,10 @@ public class HitBox : MonoBehaviour
     [SerializeField] private Collider2D col;
     
     public HurtBox originHurtBox;
-    public float damage;
+    public int damage = 1;
     public float knockbackStrength;
 
-    public void Setup(HurtBox origin, float dmg)
+    public void Setup(HurtBox origin, int dmg)
     {
         col.enabled = true;
         originHurtBox = origin;

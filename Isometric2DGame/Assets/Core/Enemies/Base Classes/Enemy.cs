@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
     public float attackWindUp = 0.5f;
     public float attackCoolDown = 0.5f;
     
-    public float damage;
+    public int damage;
     
     [HideInInspector] public GameObject aggroTarget;
     

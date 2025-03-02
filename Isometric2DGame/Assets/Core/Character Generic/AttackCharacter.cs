@@ -13,7 +13,7 @@ public class AttackCharacter : MonoBehaviour
     [HideInInspector] public bool isAttacking = false;
     
     // Attack needs 2 inputs. Direction to attack and damage of attack
-    public void TriggerAttack(Vector2 direction, float damage)
+    public void TriggerAttack(Vector2 direction, int damage)
     {
         // Toggle the isAttacking bool so we do not have duplicate attacks
         isAttacking = true;
